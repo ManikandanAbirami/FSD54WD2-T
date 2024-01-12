@@ -22,15 +22,11 @@ function Home() {
         <>
             <h1>List of courses:</h1>
             <ol>
-                {list.map(function (item) {
-                    return <li>{`${item.mentor} - ${item.title} - ${item.points}`}</li>
+                {list.map(function (item, index) {
+                    console.log(index + " For testing purpose");
+                    return <li key={index}>{`${item.mentor} - ${item.title} - ${item.points}`}</li>
                 })}
             </ol>
-            {/* <ol>
-                <li>{list[0].title}</li>
-                <li>{list[1].title}</li>
-                <li>{list[2].title}</li>
-            </ol> */}
         </>
     )
 }
