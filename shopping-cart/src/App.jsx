@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import ProductList from './ProductList'
 import ShoppingCart from './ShoppingCart'
+import Div from './div'
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -20,6 +21,7 @@ function App() {
       <h1>Shopping Cart</h1>
       <ProductList onAddToCart={handleAddToCart} />
       <ShoppingCart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />
+      <Div></Div>
     </div>
   )
 }

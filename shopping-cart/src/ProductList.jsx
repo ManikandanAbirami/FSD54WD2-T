@@ -2,6 +2,7 @@ import React from 'react'
 
 function ProductList({ onAddToCart }) {
     const products = ['Apple', 'Banana', 'Carrot'];
+    const grey = "orange";
     const divStyle = {
         border: '1px solid white',
         borderRadius: '8px',
