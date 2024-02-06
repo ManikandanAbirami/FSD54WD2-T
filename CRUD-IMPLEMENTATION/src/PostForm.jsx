@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
-function AppForm({ post: currentPost, handleSubmit, handleCancel }) {
+function PostForm({ post: currentPost, handleSubmit, handleCancel }) {
     const [post, setPost] = useState({ username: '', email: '' });
 
     useEffect(() => {
-        if (currentPost) setPost(currentPost);
+        if (!currentPost) {
+            setPost({ username: '', email: '' });
+        }
+        else {
+            setPost(currentPost);
+        };
     }, [currentPost]);
 
     const onChange = (e) => {
@@ -18,17 +23,20 @@ function AppForm({ post: currentPost, handleSubmit, handleCancel }) {
                 e.preventDefault();
                 handleSubmit(post);
             }}>
-                <label>UserName:</label>
+                <label>Name:</label>
                 <input type="text" name="username" value={post.username} onChange={onChange} required />
 
                 <label>Email:</label>
                 <input type='email' name="email" value={post.email} onChange={onChange} required />
 
                 <button type='submit'>Submit</button>
-                <button onClick={handleCancel}>Cancel</button>
+                <button type='button' onClick={(e) => {
+                    e.preventDefault();
+                    handleCancel();
+                }}>Cancel</button>
             </form>
-        </div>
+        </div >
     )
 }
 
-export default AppForm
+export default PostForm
