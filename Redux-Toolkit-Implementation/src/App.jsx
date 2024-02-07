@@ -1,41 +1,53 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useSelector, useDispatch } from 'react-redux';
 import './App.css'
+import { addTodo, completeTodo, deleteTodo } from './features/todos/todosSlice';
 
 function App() {
-  const [todos, setTodos] = useState([]);
   const [task, setTask] = useState('');
+  const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
 
-  const addTodo = (event) => {
-    event.preventDefault(); // Prevent form from refreshing the page
-    const newTodo = {
+  const handleAddTodo = (event) => {
+    event.preventDefault();
+    dispatch(addTodo({
       id: Date.now(),
       text: task,
       completed: false,
-    };
-
-    setTodos([...todos, newTodo]);
-    setTask(''); //Clear input after adding
+    }));
+    setTask('');
   }
 
-  const completeTodo = (id) => {
-    const updateTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    );
-    console.log("updateTodos: ", updateTodos)
-    setTodos(updateTodos);
-  }
+  // const addTodo = (event) => {
+  //   event.preventDefault(); // Prevent form from refreshing the page
+  //   const newTodo = {
+  //     id: Date.now(),
+  //     text: task,
+  //     completed: false,
+  //   };
 
-  const deleteTodo = (id) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(updatedTodos);
-  }
+  //   setTodos([...todos, newTodo]);
+  //   setTask(''); //Clear input after adding
+  // }
+
+  // const completeTodo = (id) => {
+  //   const updateTodos = todos.map((todo) =>
+  //     todo.id === id ? { ...todo, completed: !todo.completed } : todo
+  //   );
+  //   console.log("updateTodos: ", updateTodos)
+  //   setTodos(updateTodos);
+  // }
+
+  // const deleteTodo = (id) => {
+  //   const updatedTodos = todos.filter((todo) => todo.id !== id);
+  //   setTodos(updatedTodos);
+  // }
 
   return (
     <div className="App">
       <header className='App-header'>
         <h1>Todo List</h1>
-        <form onSubmit={addTodo}>
+        <form onSubmit={handleAddTodo}>
           <input type='text' value={task} onChange={(e) => { setTask(e.target.value) }} placeholder='Add a new task'></input>
           <button type='submit'>Add</button>
         </form>
@@ -43,8 +55,8 @@ function App() {
           {todos.map((todo) => (
             <li key={todo.id} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
               {todo.text}
-              <button onClick={() => { completeTodo(todo.id) }}>Complete</button>
-              <button onClick={() => { deleteTodo(todo.id) }}>Delete</button>
+              <button onClick={() => { dispatch(completeTodo(todo.id)) }}>Complete</button>
+              <button onClick={() => { dispatch(deleteTodo(todo.id)) }}>Delete</button>
             </li>
           ))}
         </ul>
