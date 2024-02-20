@@ -33,3 +33,26 @@ exports.deleteStudent = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+// Display the edit form for a student
+exports.getEditForm = async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id);
+    res.render("edit", { student });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+// Update a student's information
+exports.updateStudent = async (req, res) => {
+  try {
+    const { name, age, grade } = req.body;
+    await Student.findByIdAndUpdate(req.params.id, { name, age, grade });
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
