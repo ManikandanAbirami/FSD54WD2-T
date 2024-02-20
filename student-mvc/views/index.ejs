@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Management System</title>
+  </head>
+  <body>
+    <h1>Student List</h1>
+    <ul>
+      <% students.forEach(student => {%>
+      <li>
+        <%= student.name %> - <%= student.age %> years old - Grade: <%=
+        student.grade %>
+        <form
+          method="POST"
+          action="/students/<%= student._id %>?_method=DELETE"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <% }); %>
+    </ul>
+    <h2>Add New Student</h2>
+    <form method="POST" action="/students">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="number" name="age" placeholder="Age" required />
+      <input type="text" name="grade" placeholder="Grade" required />
+      <button type="submit">Add Student</button>
+    </form>
+  </body>
+</html>
