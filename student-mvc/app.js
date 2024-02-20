@@ -7,8 +7,12 @@ const studentController = require("./controllers/studentController");
 
 const app = express();
 
+require("dotenv").config();
+
+const dbUrl = process.env.DB_URL;
+
 mongoose
-  .connect("mongodb://localhost:27017/student_db", {
+  .connect(dbUrl, {
     //mongodb+srv://guvi:guvi@fsdwd2-t.lhqxodp.mongodb.net
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -26,5 +30,5 @@ app.post("/students", studentController.createStudent);
 app.put("/students/:id", studentController.updateStudent);
 app.delete("/students/:id", studentController.deleteStudent);
 
-const PORT = 8000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
