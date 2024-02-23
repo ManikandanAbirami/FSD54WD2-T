@@ -56,3 +56,18 @@ exports.updateStudent = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+// Assign a student to a mentor
+exports.assignStudentToMentor = async (req, res) => {
+  try {
+    const { mentorId, studentIds } = req.body;
+    await Student.updateMany(
+      { _id: { $in: studentIds } },
+      { mentor: mentorId }
+    );
+    res.status(200).send("Students assigned to mentor successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
