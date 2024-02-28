@@ -11,6 +11,6 @@ router
   .put(userController.update)
   .delete(userController.remove);
 
-router.param("userId", userController.userByID);
+// router.param("userId", userController.userByID);
 
 module.exports = router;

@@ -4,6 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const compress = require("compression");
 const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -14,4 +15,5 @@ app.use(helmet());
 app.use(cors());
 
 app.use("/", userRoutes);
+app.use("/", authRoutes);
 module.exports = app;
