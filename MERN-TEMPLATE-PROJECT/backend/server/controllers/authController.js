@@ -16,9 +16,7 @@ const signin = async (req, res) => {
     //Validate password
     const isMath = await bcrypt.compare(password, user.password);
     if (!isMath) {
-      return res
-        .status(400)
-        .json({ msg: "Username or password is incorrect." });
+      return res.status(400).json({ msg: "Email or password is incorrect." });
     }
 
     //Generate JWT token
