@@ -31,7 +31,7 @@ const signin = async (req, res) => {
 
     jwt.sign(payload, config.jwtSecret, { expiresIn: "1h" }, (err, token) => {
       if (err) throw err;
-      res.json({ token });
+      res.json({ token, userId: user.id });
     });
 
     // res.status(201).json({ msg: "User Logged in successfully." });

@@ -1,15 +1,20 @@
 const express = require("express");
 const userController = require("../controllers/userController");
+const authenticateToken = require("../authenticateToken");
 
 const router = express.Router();
 
-router.route("/api/users").get(userController.list).post(userController.create);
+// Apply authentication middleware to protected routes
+router
+  .route("/api/users")
+  .get(authenticateToken, userController.list) // Protect the list route
+  .post(userController.create); // Registration might not need protection
 
 router
   .route("/api/users/:userId")
-  .get(userController.read)
-  .put(userController.update)
-  .delete(userController.remove);
+  .get(authenticateToken, userController.read) // Protect user profile access
+  .put(authenticateToken, userController.update) // Protect profile update
+  .delete(authenticateToken, userController.remove); // Protect delete operation
 
 // router.param("userId", userController.userByID);
 
